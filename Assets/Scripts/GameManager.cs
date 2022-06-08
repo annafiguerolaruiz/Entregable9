@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI username;
 
+    public TextMeshProUGUI powerUpText;
+
 
 
     private void Awake()
@@ -37,5 +39,6 @@ public class GameManager : MonoBehaviour
 
         username.text = PersistenciaDeDatos.sharedInstance.username;
         level.text = PersistenciaDeDatos.sharedInstance.level.ToString();
+        powerUpText.text = PersistenciaDeDatos.sharedInstance.powerUp.ToString();
     }
 }

@@ -5,15 +5,18 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-
-
 public class MenuManager : MonoBehaviour
 {
-    private int level;
-    private int minLevel = 1;
-    private int maxLevel = 10;
+    public int level;
+    public int minLevel = 1;
+    public int maxLevel = 10;
     public TextMeshProUGUI levelText;
     public TMP_InputField username;
+
+    public TextMeshProUGUI powerUpText;
+    public float randomNum;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,8 @@ public class MenuManager : MonoBehaviour
         PersistenciaDeDatos.sharedInstance.username = username.text;
         // Persistencia de datos entre partidas
         PersistenciaDeDatos.sharedInstance.SaveForFutureGames();
+
+        PersistenciaDeDatos.sharedInstance.powerUp = randomNum;
     }
     public void LoadUserOptions()
     {
@@ -42,6 +47,8 @@ public class MenuManager : MonoBehaviour
         {
             username.text = PlayerPrefs.GetString("USERNAME");
         }
+
+        powerUpText.text = PlayerPrefs.GetFloat("PowerUp").ToString();
     }
     #region Level Settings
 
@@ -64,4 +71,11 @@ public class MenuManager : MonoBehaviour
         levelText.text = level.ToString();
     }
     #endregion
+
+    public void RandomPowerUp()
+    {
+        randomNum = Random.Range(1.0f, 10.0f);
+        powerUpText.text = randomNum.ToString();
+
+    }
 }

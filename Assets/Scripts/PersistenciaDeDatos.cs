@@ -10,6 +10,9 @@ public class PersistenciaDeDatos : MonoBehaviour
     public static PersistenciaDeDatos sharedInstance;
     public string username;
 
+    public float powerUp;
+
+
     private void Awake()
     {
         // Si la instancia no existe
@@ -32,6 +35,9 @@ public class PersistenciaDeDatos : MonoBehaviour
 
         // Nombre de usuario
         PlayerPrefs.SetString("USERNAME", username);
+
+        //Guardamos la variable float
+        PlayerPrefs.SetFloat("PowerUp", powerUp);
 
 
     }
