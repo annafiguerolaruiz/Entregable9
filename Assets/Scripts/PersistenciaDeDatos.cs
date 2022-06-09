@@ -47,6 +47,8 @@ public class PersistenciaDeDatos : MonoBehaviour
         PlayerPrefs.SetInt("CHECK", CheckVolumen);
 
         PlayerPrefs.SetInt("Contador", ContadorAnteriorEscenas);
+
+
     }
 
 }
