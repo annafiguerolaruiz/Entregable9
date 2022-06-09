@@ -12,6 +12,11 @@ public class PersistenciaDeDatos : MonoBehaviour
 
     public float powerUp;
 
+    public int CheckVolumen;
+
+    public int ContadorEscenasActual;
+    public int ContadorAnteriorEscenas;
+
 
     private void Awake()
     {
@@ -39,7 +44,9 @@ public class PersistenciaDeDatos : MonoBehaviour
         //Guardamos la variable float
         PlayerPrefs.SetFloat("PowerUp", powerUp);
 
+        PlayerPrefs.SetInt("CHECK", CheckVolumen);
 
+        PlayerPrefs.SetInt("Contador", ContadorAnteriorEscenas);
     }
 
 }

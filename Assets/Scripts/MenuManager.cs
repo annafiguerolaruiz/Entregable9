@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class MenuManager : MonoBehaviour
 {
@@ -16,6 +16,12 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI powerUpText;
     public float randomNum;
 
+    public Toggle Check;
+    public bool ValorCheck;
+
+    public TextMeshProUGUI ContadorAnterior;
+
+    public TextMeshProUGUI ContadorActual;
 
     // Start is called before the first frame update
     void Start()
@@ -27,28 +33,50 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SaveCheck();
     }
     public void SaveUserOptions()
     {
         PersistenciaDeDatos.sharedInstance.level = level;
         PersistenciaDeDatos.sharedInstance.username = username.text;
+       
         // Persistencia de datos entre partidas
-        PersistenciaDeDatos.sharedInstance.SaveForFutureGames();
-
         PersistenciaDeDatos.sharedInstance.powerUp = randomNum;
+        PersistenciaDeDatos.sharedInstance.SaveForFutureGames();
+  
     }
     public void LoadUserOptions()
     {
-        level = PlayerPrefs.GetInt("LEVEL");
-        UpdateLevel();
-
         if (PlayerPrefs.HasKey("USERNAME"))
         {
-            username.text = PlayerPrefs.GetString("USERNAME");
-        }
+            level = PlayerPrefs.GetInt("LEVEL");
+            UpdateLevel();
 
-        powerUpText.text = PlayerPrefs.GetFloat("PowerUp").ToString();
+            username.text = PlayerPrefs.GetString("USERNAME");
+
+
+            powerUpText.text = PlayerPrefs.GetFloat("PowerUp").ToString();
+
+            Check.GetComponent<Toggle>().isOn = IntToBool(PlayerPrefs.GetInt("CHECK"));
+
+            ContadorAnterior.text = PlayerPrefs.GetInt("Contador").ToString();
+
+            ContadorActual.text = PersistenciaDeDatos.sharedInstance.ContadorEscenasActual.ToString();
+
+            PersistenciaDeDatos.sharedInstance.ContadorAnteriorEscenas = PlayerPrefs.GetInt("Contador");
+        }
+      
+    }
+    public bool IntToBool(int Valor)
+    {
+        if (Valor == 0)
+        {
+            return false;
+            }
+        else
+        {
+            return true;
+        }
     }
     #region Level Settings
 
@@ -76,6 +104,22 @@ public class MenuManager : MonoBehaviour
     {
         randomNum = Random.Range(1.0f, 10.0f);
         powerUpText.text = randomNum.ToString();
+
+    }
+
+    public void SaveCheck()
+    {
+        ValorCheck = Check.GetComponent<Toggle>().isOn;
+        if (ValorCheck)
+        {
+            PersistenciaDeDatos.sharedInstance.CheckVolumen = 1;
+
+        }
+        else
+        {
+            PersistenciaDeDatos.sharedInstance.CheckVolumen = 0;
+        }
+     
 
     }
 }

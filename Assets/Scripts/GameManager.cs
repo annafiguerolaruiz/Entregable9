@@ -14,7 +14,11 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI powerUpText;
 
+    public AudioSource Musica;
 
+    public TextMeshProUGUI ContadorAnterior;
+
+    public TextMeshProUGUI ContadorActual;
 
     private void Awake()
     {
@@ -40,5 +44,20 @@ public class GameManager : MonoBehaviour
         username.text = PersistenciaDeDatos.sharedInstance.username;
         level.text = PersistenciaDeDatos.sharedInstance.level.ToString();
         powerUpText.text = PersistenciaDeDatos.sharedInstance.powerUp.ToString();
+        CheckMusic();
+        ContadorActual.text = PersistenciaDeDatos.sharedInstance.ContadorEscenasActual.ToString();
+        ContadorAnterior.text = PersistenciaDeDatos.sharedInstance.ContadorAnteriorEscenas.ToString();
+
+    }
+    public void CheckMusic()
+    {
+        if (PersistenciaDeDatos.sharedInstance.CheckVolumen == 0)
+        {
+            Musica.Pause();
+        }
+        else
+        {
+            Musica.Play();
+        }
     }
 }
